@@ -3,6 +3,7 @@ package com.example.androidbenchmark
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.os.Debug
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,8 +39,10 @@ class MainActivity : AppCompatActivity() {
     private val gson = Gson()
 
     private val api by lazy {
-        Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
+        Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
             .create(JsonPlaceholderApi::class.java)
     }
 
@@ -60,6 +63,8 @@ class MainActivity : AppCompatActivity() {
             "fileRead1k" to findViewById<TextView>(R.id.txtResultFileRead1k),
             "fileRead10k" to findViewById<TextView>(R.id.txtResultFileRead10k),
             "fileRead100k" to findViewById<TextView>(R.id.txtResultFileRead100k),
+            "uiTest" to findViewById<TextView>(R.id.txtResultUiTest),
+            "memory" to findViewById<TextView>(R.id.txtResultMemory),
             "network" to findViewById<TextView>(R.id.txtResultNetwork),
             "json" to findViewById<TextView>(R.id.txtResultJson)
         )
@@ -72,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         dbHelper = DatabaseHelper(applicationContext)
 
         setupClickListeners()
+
+        findViewById<Button>(R.id.btnMemoryTest).text = "Ler Memória Atual"
     }
 
     private fun setupClickListeners() {
@@ -127,6 +134,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnUiTestList).setOnClickListener {
             startActivity(Intent(this, UiTestActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnMemoryTest).setOnClickListener {
+            readCurrentMemory(textViews["memory"]!!)
         }
 
         findViewById<Button>(R.id.btnNetworkTest).setOnClickListener {
@@ -239,6 +250,10 @@ class MainActivity : AppCompatActivity() {
             .joinToString("")
     }
 
+    private fun formatMb(bytes: Long): String {
+        return String.format("%.1f", bytes / (1024.0 * 1024.0))
+    }
+
     private fun runFileWriteTest(charCount: Int, resultView: TextView): Job {
         return lifecycleScope.launch(Dispatchers.Main) {
             resultView.text = "Rodando..."
@@ -343,6 +358,27 @@ class MainActivity : AppCompatActivity() {
                 nanoTime / 1_000_000.0
             }
             resultView.text = String.format("%.3f ms", timeInMillis)
+        }
+    }
+
+    private fun readCurrentMemory(resultView: TextView) {
+        System.gc()
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.Default) { Thread.sleep(100) }
+
+            val runtime = Runtime.getRuntime()
+            val javaHeap = runtime.totalMemory() - runtime.freeMemory()
+            val nativeHeap = Debug.getNativeHeapAllocatedSize()
+
+            val totalUsed = javaHeap + nativeHeap
+
+            resultView.text =
+                "Total: ${formatMb(totalUsed)} MB" +
+                        "\n(Java: ${formatMb(javaHeap)}" +
+                        " + Nativo: ${
+                            formatMb(nativeHeap)
+                        })"
         }
     }
 

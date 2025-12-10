@@ -459,7 +459,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Alocar 30MB" />
+                android:text="Ler Memória Atual" />
 
             <TextView
                 android:id="@+id/txtResultMemory"
@@ -469,6 +469,7 @@
                 android:gravity="center"
                 android:text="-"
                 android:textAppearance="?attr/textAppearanceBodyMedium" />
+
         </LinearLayout>
 
         <!-- Título: Testes de Rede e JSON -->
