@@ -1,22 +1,47 @@
 package com.example.androidbenchmark
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.http.GET
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.Random
 import kotlin.system.measureNanoTime
 
+data class MockPost(
+    val id: Int, val title: String, val body: String, val userId: Int
+)
+
+interface JsonPlaceholderApi {
+    @GET("photos")
+    suspend fun getPhotos(): List<MockPhoto>
+}
+
+data class MockPhoto(val id: Int, val title: String, val url: String)
+
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
+    private val gson = Gson()
+
+    private val api by lazy {
+        Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+            .create(JsonPlaceholderApi::class.java)
+    }
 
     private val textViews by lazy {
         mapOf(
@@ -34,7 +59,9 @@ class MainActivity : AppCompatActivity() {
             "fileWrite100k" to findViewById<TextView>(R.id.txtResultFileWrite100k),
             "fileRead1k" to findViewById<TextView>(R.id.txtResultFileRead1k),
             "fileRead10k" to findViewById<TextView>(R.id.txtResultFileRead10k),
-            "fileRead100k" to findViewById<TextView>(R.id.txtResultFileRead100k)
+            "fileRead100k" to findViewById<TextView>(R.id.txtResultFileRead100k),
+            "network" to findViewById<TextView>(R.id.txtResultNetwork),
+            "json" to findViewById<TextView>(R.id.txtResultJson)
         )
     }
 
@@ -96,6 +123,17 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.btnFileRead100k).setOnClickListener {
             runFileReadTest(100_000, textViews["fileRead100k"]!!)
+        }
+
+        findViewById<Button>(R.id.btnUiTestList).setOnClickListener {
+            startActivity(Intent(this, UiTestActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnNetworkTest).setOnClickListener {
+            runNetworkTest(textViews["network"]!!)
+        }
+        findViewById<Button>(R.id.btnJsonTest).setOnClickListener {
+            runJsonTest(textViews["json"]!!)
         }
     }
 
@@ -164,14 +202,7 @@ class MainActivity : AppCompatActivity() {
 
                 val nanoTime = measureNanoTime {
                     val cursor = db.query(
-                        DbContract.Entry.TABLE_NAME,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        "$count"
+                        DbContract.Entry.TABLE_NAME, null, null, null, null, null, null, "$count"
                     )
                     with(cursor) {
                         while (moveToNext()) {
@@ -204,8 +235,7 @@ class MainActivity : AppCompatActivity() {
     private val ALPHANUMERIC_CHARS = ('a'..'z') + ('A'..'Z') + ('0'..'9')
     private fun generateRandomString(length: Int): String {
         val random = Random()
-        return (1..length)
-            .map { ALPHANUMERIC_CHARS[random.nextInt(ALPHANUMERIC_CHARS.size)] }
+        return (1..length).map { ALPHANUMERIC_CHARS[random.nextInt(ALPHANUMERIC_CHARS.size)] }
             .joinToString("")
     }
 
@@ -260,6 +290,59 @@ class MainActivity : AppCompatActivity() {
                     resultView.text = String.format("%.3f ms", timeInMillis)
                 }
             }
+        }
+    }
+
+    private fun runNetworkTest(resultView: TextView) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            resultView.text = "Baixando..."
+            try {
+                val timeInMillis = withContext(Dispatchers.IO) {
+                    val nanoTime = measureNanoTime {
+                        val photos = api.getPhotos()
+                        val count = photos.size
+                    }
+                    nanoTime / 1_000_000.0
+                }
+                resultView.text = String.format("%.3f ms", timeInMillis)
+            } catch (e: Exception) {
+                resultView.text = "Erro: ${e.message}"
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun runJsonTest(resultView: TextView) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            resultView.text = "Gerando..."
+
+            val jsonString = withContext(Dispatchers.Default) {
+                val list = ArrayList<MockPost>()
+                for (i in 1..10000) {
+                    list.add(
+                        MockPost(
+                            i,
+                            "Título $i",
+                            "Corpo do post $i repetido muitas vezes para dar volume.",
+                            i
+                        )
+                    )
+                }
+                gson.toJson(list)
+            }
+
+            resultView.text = "Parsing..."
+
+            val timeInMillis = withContext(Dispatchers.Default) {
+                val type = object : TypeToken<List<MockPost>>() {}.type
+
+                val nanoTime = measureNanoTime {
+                    val posts: List<MockPost> = gson.fromJson(jsonString, type)
+                    val size = posts.size
+                }
+                nanoTime / 1_000_000.0
+            }
+            resultView.text = String.format("%.3f ms", timeInMillis)
         }
     }
 

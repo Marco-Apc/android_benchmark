@@ -1,400 +1,535 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        tools:context=".MainActivity">
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
 
+        <!-- Título: Testes de CPU -->
         <TextView
-            android:id="@+id/titleCpu"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtCpuTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Testes de CPU (Dual-Pivot Quicksort)"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="16dp"
+            android:text="Testes de CPU (Dual-Pivot Quicksort)" />
 
-        <Button
-            android:id="@+id/btnSort10k"
-            android:layout_width="0dp"
+        <!-- ... (Layouts existentes para Sort 10k, 100k, 1M) ... -->
+        <!-- Layout para Sort 10k -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Sort 10,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultSort10k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleCpu" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
+            <Button
+                android:id="@+id/btnSort10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort 10,000" />
+
+            <TextView
+                android:id="@+id/txtResultSort10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Layout para Sort 100k -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnSort100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort 100,000" />
+
+            <TextView
+                android:id="@+id/txtResultSort100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Layout para Sort 1M -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnSort1M"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort 1,000,000" />
+
+            <TextView
+                android:id="@+id/txtResultSort1M"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Título: Testes de BD -->
         <TextView
-            android:id="@+id/txtResultSort10k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnSort10k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnSort10k"
-            app:layout_constraintTop_toTopOf="@id/btnSort10k" />
-
-        <Button
-            android:id="@+id/btnSort100k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Sort 100,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultSort100k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSort10k" />
-
-        <TextView
-            android:id="@+id/txtResultSort100k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnSort100k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnSort100k"
-            app:layout_constraintTop_toTopOf="@id/btnSort100k" />
-
-        <Button
-            android:id="@+id/btnSort1M"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Sort 1,000,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultSort1M"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSort100k" />
-
-        <TextView
-            android:id="@+id/txtResultSort1M"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnSort1M"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnSort1M"
-            app:layout_constraintTop_toTopOf="@id/btnSort1M" />
-
-        <TextView
-            android:id="@+id/titleDb"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtDbTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Testes de Banco de Dados (SQLite)"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSort1M" />
+            android:paddingHorizontal="16dp"
+            android:text="Testes de Banco de Dados (SQLite)" />
 
-        <Button
-            android:id="@+id/btnDbWrite100"
-            android:layout_width="0dp"
+        <!-- ... (Layouts existentes para DB Write 100, 500, 1k) ... -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Write 100"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbWrite100"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleDb" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
+            <Button
+                android:id="@+id/btnDbWrite100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 100" />
+
+            <TextView
+                android:id="@+id/txtResultDbWrite100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnDbWrite500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 500" />
+
+            <TextView
+                android:id="@+id/txtResultDbWrite500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnDbWrite1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 1,000" />
+
+            <TextView
+                android:id="@+id/txtResultDbWrite1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- ... (Layouts existentes para DB Read 100, 500, 1k) ... -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnDbRead100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 100" />
+
+            <TextView
+                android:id="@+id/txtResultDbRead100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnDbRead500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 500" />
+
+            <TextView
+                android:id="@+id/txtResultDbRead500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnDbRead1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 1,000" />
+
+            <TextView
+                android:id="@+id/txtResultDbRead1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+
+        <!-- Título: Testes de Arquivo -->
         <TextView
-            android:id="@+id/txtResultDbWrite100"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbWrite100"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbWrite100"
-            app:layout_constraintTop_toTopOf="@id/btnDbWrite100" />
-
-        <Button
-            android:id="@+id/btnDbWrite500"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Write 500"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbWrite500"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbWrite100" />
-
-        <TextView
-            android:id="@+id/txtResultDbWrite500"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbWrite500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbWrite500"
-            app:layout_constraintTop_toTopOf="@id/btnDbWrite500" />
-
-        <Button
-            android:id="@+id/btnDbWrite1k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Write 1,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbWrite1k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbWrite500" />
-
-        <TextView
-            android:id="@+id/txtResultDbWrite1k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbWrite1k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbWrite1k"
-            app:layout_constraintTop_toTopOf="@id/btnDbWrite1k" />
-
-        <Button
-            android:id="@+id/btnDbRead100"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Read 100"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbRead100"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbWrite1k" />
-
-        <TextView
-            android:id="@+id/txtResultDbRead100"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbRead100"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbRead100"
-            app:layout_constraintTop_toTopOf="@id/btnDbRead100" />
-
-        <Button
-            android:id="@+id/btnDbRead500"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Read 500"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbRead500"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbRead100" />
-
-        <TextView
-            android:id="@+id/txtResultDbRead500"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbRead500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbRead500"
-            app:layout_constraintTop_toTopOf="@id/btnDbRead500" />
-
-        <Button
-            android:id="@+id/btnDbRead1k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Read 1,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultDbRead1k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbRead500" />
-
-        <TextView
-            android:id="@+id/txtResultDbRead1k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnDbRead1k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnDbRead1k"
-            app:layout_constraintTop_toTopOf="@id/btnDbRead1k" />
-
-        <TextView
-            android:id="@+id/titleFile"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtFileTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Testes de Arquivo (I/O)"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDbRead1k" />
+            android:paddingHorizontal="16dp"
+            android:text="Testes de Arquivo (I/O)" />
 
-        <Button
-            android:id="@+id/btnFileWrite1k"
-            android:layout_width="0dp"
+        <!-- ... (Layouts existentes para File Write 1k, 10k, 100k) ... -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Write 1,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileWrite1k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleFile" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
+            <Button
+                android:id="@+id/btnFileWrite1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 1k" />
+
+            <TextView
+                android:id="@+id/txtResultFileWrite1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnFileWrite10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 10k" />
+
+            <TextView
+                android:id="@+id/txtResultFileWrite10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnFileWrite100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Write 100k" />
+
+            <TextView
+                android:id="@+id/txtResultFileWrite100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- ... (Layouts existentes para File Read 1k, 10k, 100k) ... -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnFileRead1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 1k" />
+
+            <TextView
+                android:id="@+id/txtResultFileRead1k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnFileRead10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 10k" />
+
+            <TextView
+                android:id="@+id/txtResultFileRead10k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <Button
+                android:id="@+id/btnFileRead100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Read 100k" />
+
+            <TextView
+                android:id="@+id/txtResultFileRead100k"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Título: Teste de UI -->
         <TextView
-            android:id="@+id/txtResultFileWrite1k"
-            android:layout_width="0dp"
+            android:id="@+id/txtUiTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileWrite1k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileWrite1k"
-            app:layout_constraintTop_toTopOf="@id/btnFileWrite1k" />
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="16dp"
+            android:text="Testes de UI (Renderização)" />
 
-        <Button
-            android:id="@+id/btnFileWrite10k"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write 10,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileWrite10k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnFileWrite1k" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
+            <Button
+                android:id="@+id/btnUiTestList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Abrir Lista (1k Itens)" />
+
+            <TextView
+                android:id="@+id/txtResultUiTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Medir com Profiler"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        </LinearLayout>
+
+        <!-- Título: Teste de Memória RAM-->
         <TextView
-            android:id="@+id/txtResultFileWrite10k"
-            android:layout_width="0dp"
+            android:id="@+id/txtMemoryTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileWrite10k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileWrite10k"
-            app:layout_constraintTop_toTopOf="@id/btnFileWrite10k" />
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="16dp"
+            android:text="Teste de Memória RAM" />
 
-        <Button
-            android:id="@+id/btnFileWrite100k"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Write 100,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileWrite100k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnFileWrite10k" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
+            <Button
+                android:id="@+id/btnMemoryTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Alocar 30MB" />
+
+            <TextView
+                android:id="@+id/txtResultMemory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Título: Testes de Rede e JSON -->
         <TextView
-            android:id="@+id/txtResultFileWrite100k"
-            android:layout_width="0dp"
+            android:id="@+id/txtNetTestTitle"
+            style="?attr/textAppearanceHeadlineSmall"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileWrite100k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileWrite100k"
-            app:layout_constraintTop_toTopOf="@id/btnFileWrite100k" />
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="16dp"
+            android:text="Testes de Rede e JSON" />
 
-        <Button
-            android:id="@+id/btnFileRead1k"
-            android:layout_width="0dp"
+        <!-- Teste de Rede -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Read 1,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileRead1k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnFileWrite100k" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
-        <TextView
-            android:id="@+id/txtResultFileRead1k"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btnNetworkTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="GET 5k Photos (Net)" />
+
+            <TextView
+                android:id="@+id/txtResultNetwork"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
+
+        <!-- Teste de JSON -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileRead1k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileRead1k"
-            app:layout_constraintTop_toTopOf="@id/btnFileRead1k" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
 
-        <Button
-            android:id="@+id/btnFileRead10k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Read 10,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileRead10k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnFileRead1k" />
+            <Button
+                android:id="@+id/btnJsonTest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Parse 10k Items (CPU)" />
 
-        <TextView
-            android:id="@+id/txtResultFileRead10k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileRead10k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileRead10k"
-            app:layout_constraintTop_toTopOf="@id/btnFileRead10k" />
+            <TextView
+                android:id="@+id/txtResultJson"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="-"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnFileRead100k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Read 100,000"
-            app:layout_constraintEnd_toStartOf="@+id/txtResultFileRead100k"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnFileRead10k" />
-
-        <TextView
-            android:id="@+id/txtResultFileRead100k"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@id/btnFileRead100k"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/btnFileRead100k"
-            app:layout_constraintTop_toTopOf="@id/btnFileRead100k" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </ScrollView>
